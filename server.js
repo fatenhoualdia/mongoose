@@ -5,23 +5,7 @@ const app = express();
 app.use(express.json());
 connectDB();
 
-// Create and Save a Record of a Model
-const User = require("./model/User");
-app.post("/users", (req, res) => {
-  const { name, age, favoriteFoods } = req.body;
-  const Person = new User({ name, age, favoriteFoods });
-  Person.save()
-    .then(
-      (newPerson) =>
-        res.send({ msg: "User added SUCCESSFULLY.", newPerson }) &&
-        console.log("User added SUCCESSFULLY.", newPerson)
-    )
-    .catch(
-      (err) =>
-        res.send({ msg: "Operation Failed!!", err }) &&
-        console.log("Operation Failed!!", err)
-    );
-});
+
 
 // Create and Save a Record of a Model
 const User = require("./model/User");
