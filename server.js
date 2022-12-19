@@ -10,9 +10,12 @@ connectDB();
 // Create and Save a Record of a Model
 const User = require("./model/User");
 app.post("/users", (req, res) => {
-  const { name, age, favoriteFoods } = req.body;
-  const Person = new User({ name, age, favoriteFoods });
-  Person.save()
+  
+  const Person = new User({name: "Faten",
+      age: 20,
+      favoriteFoods: ["pizza", "spagetti","lazagne"],
+                           });
+  await.newPerson.save()
     .then(
       (newPerson) =>
         res.send({ msg: "User added SUCCESSFULLY.", newPerson }) &&
@@ -27,15 +30,29 @@ app.post("/users", (req, res) => {
 
 // Create Many Records with model.create()
 app.post("/users/many", (req, res) => {
-    const newUsers = req.body;
-    User.create(newUsers, (err, data) => {
-      data
-        ? res.send({ msg: "All userS have been added SUCCESSFULLY", data }) &&
-          console.log("All userS have been added SUCCESSFULLY", data)
-        : res.send({ msg: "Adding new userS failed!!", err }) &&
-          console.log("Adding new userS failed!!", err);
-    });
-  });
+ const  newUsers = async () => {
+  try {
+    const manyPerson = await Person.create([
+      {
+        name: "Serena",
+        age: 35,
+        favoriteFoods: ["pizza", "soup", "fried egg"],
+        gender: "female",
+      },
+      {
+        name: "Alexander",
+        age: 42,
+        favoriteFoods: ["Sandwich", "grilled meat", "spagetti"],
+      },
+      { name: "Elena",
+       age: 28,
+       gender: "female" },
+    ]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+    
   
   // Use model.find() to Search Your Database
   app.get("/users", (req, res) => {
